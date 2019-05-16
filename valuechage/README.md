@@ -134,7 +134,7 @@
    在这样可以解决问题，为啥之前不加的时候点击会打印两次
    原因大致是因为： 点击时 在动画过程先后触发了 notifyListeners();
    
-        主要问题：https://github.com/flutter/flutter/issues/13848
+        主要问题阐述网址：https://github.com/flutter/flutter/issues/13848
         
    现在这样就可以使用tab，可是，当tab跨页面跳转的时候，之前的页面又会重新被initState（），这个时候，我们可以给每个页面的State类 with 一个AutomaticKeepAliveClientMixin，并且将它的值设置成true，这样子就可以进行状态的保存。
    
@@ -143,8 +143,12 @@
    可是，我还是发现了一个问题，我在每个子页面的initState中进行打印，滑动的时候不会重新运行initState（），点击相邻的tab按钮不会进行initState（），可是，当跨tab点击的时候，就会发现会中间的所有页面和目的页面的initState（）都重新运行了。。。额，这个目前暂时没有解决方法，还的研究，可是我发现好像虽然initState（）运行，可是却不会把数据弄丢，数据依然在。。这的确是要给问题，有待研究。
         我上网搜了两个blog说是通过其他方式去解决保存问题的，可以参考一下：
         
-            https://blog.csdn.net/j550341130/article/details/88102927 //这个是使用AutomaticKeepAliveClientMixin有可能发生的问题
-            https://www.jianshu.com/p/cefe49a0ab7f //这是是使用tab+offstage+stack进行的，不过这个会一下子把所有页面初始化，这个好不好，看情况
+   这个是使用AutomaticKeepAliveClientMixin有可能发生的问题：
+   
+      https://blog.csdn.net/j550341130/article/details/88102927 
+   这是是使用tab+offstage+stack进行状态保存的的，不过这个会一下子把所有页面初始化，这个好不好，看情况： 
+   
+      https://www.jianshu.com/p/cefe49a0ab7f 
  截止到这里，就是tab的使用：
         
 2.路由跳转与回传参数：
