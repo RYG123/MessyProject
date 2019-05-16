@@ -297,3 +297,104 @@ setState（）方法，这时候会报错，可是不会让程序崩溃，不过
 
 4.VoidCallBack 和 ValueChange的使用
 VoidCallBack 是用来回调方法的
+      
+      //简单使用
+      hao((){
+            print('');
+      });
+      
+      hao(VoidCallBack voidCallBack){
+            voidCallBack();
+      }
+      
+在我的这个项目中是这样用的：
+      
+            @override
+      Widget build(BuildContext context) {
+      return Scaffold(
+        ...
+        ),
+        body: TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            Center(child: data(_counter)),
+            Center(child: controller(_counter)),
+            Center(child: setting(_counter,
+            //注意是这里`~~~~~~~~~~~~~~在setting类里面进行~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+            (){
+              Navigator.of(context).push( new MaterialPageRoute(builder: (context)=>new Pagger()))
+                  .then((s){
+                print("s:"+s.toString());
+                ...
+                });
+                ...
+              });
+            })),
+          ], 
+        ),
+       );
+      }
+
+然后再setting类中:
+      
+      class setting extends StatefulWidget {
+            //这类进行VoidCallBack的声明:
+            VoidCallback goPagger;
+            int _counter = 0;
+            
+            setting(int _counter,VoidCallback goPagger){
+            this._counter = _counter;
+            this.goPagger = goPagger;
+            print("重新setting build");
+            }
+            @override
+            State<StatefulWidget> createState() {
+            // TODO: implement createState
+            return new settingState(_counter);
+                  }
+             }
+             
+在settingState类中：
+      
+      class settingState extends State<setting> with AutomaticKeepAliveClientMixin{
+      
+            ...
+            
+            @override
+            Widget build(BuildContext context) {
+            // TODO: implement build
+            return Container(
+                  child: Column(
+                        children: <Widget>[
+                              Text('${_counter + 2}'),
+                              RawMaterialButton(
+                                    child: Text("setting按钮"),
+                                    onPressed: (){
+                                    widget.goPagger();//这里调用了父类的goPagger（）
+                                    },
+                                    )
+                              ],
+                             ),
+                        );
+                  }
+                  ....
+                  }
+                  
+解析一下：
+      这里通过在setting中声明了VoidCallBack goPagger;
+      然后再main方法里面，把整个的路由转跳方法传给setting类，也就是把路由转跳赋值给了goPagger；
+      所以，当需要跳到NamePager的时候，就可以直接使用widget.goPagger进行跳转，然后回传参数的话就可以使用eventbus和pop进行参数回传跟新界面
+      
+ValueChange的使用：
+这个方法可以进行调值：
+      
+       hao((e){ 
+
+            print("e");
+
+            });
+
+
+      hao(ValueChange valueChange){
+            valueChange("11111111");
+      }
