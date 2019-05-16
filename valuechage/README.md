@@ -1,21 +1,20 @@
 这是我第一次做的flutter项目，在很多地方都很不成熟，而且特别特别多bug，因为自己平常想写blog，可是又怕自己写的不太好，虽然blog也是只是写给自己看的，
 但是还是现在这里写一下，练下手：
 
-1.这里的这个小项目主要用了几个东西，一个是tab+tabView+tabController的混合使用：
+1.这里的这个小项目主要用了几个东西，一个是tab+tabView+tabController的混合使用
 
 
-class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMixin {
-  TabController tabController;
-  var tabs = <Tab>[
-    Tab(child: new Text('1'),),
-    Tab(child: new Text("2"),),
-    Tab(child: new Text("3"),),
-  ];
-  int _counter = 0;
-  bool tan = false;
-  void initState() {
-    super.initState();
 
+      
+      class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMixin {
+       TabController tabController;
+       var tabs = <Tab>[
+       Tab(child: new Text('1'),),
+       Tab(child: new Text("2"),),
+       Tab(child: new Text("3"),),
+       ];
+        void initState() {
+        super.initState();
       tabController = TabController(length: tabs.length, vsync: this)
         ..addListener(() {
       if(tabController.index.toDouble() == tabController.animation.value) {
@@ -32,15 +31,9 @@ class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMi
         }
       }
         });
-  }
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+     }
+     @override
+     Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title:Text(widget.title),
@@ -68,8 +61,9 @@ class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMi
           ], 
         ),
     );
-  }
-}
+    }
+    }
+
   我这里是先用一个赋值<Tab>类型的list，把需要的标题都给放上去：
   var tabs = <Tab>[
     Tab(child: new Text('数据'),),
