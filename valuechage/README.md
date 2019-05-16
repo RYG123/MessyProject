@@ -1,16 +1,2 @@
-# valuechange
-
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+//这是我第一次做的flutter项目，在很多地方都很不成熟，而且特别特别多bug，因为自己平常想写blog，可是又怕自己写的不太好，虽然blog也是只是写给自己看的，
+//但是还是现在这里写一下，练下手
