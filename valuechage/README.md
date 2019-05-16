@@ -1,11 +1,10 @@
 这是我第一次做的flutter项目，在很多地方都很不成熟，而且特别特别多bug，因为自己平常想写blog，可是又怕自己写的不太好，虽然blog也是只是写给自己看的，
 但是还是现在这里写一下，练下手：
 
-1.这里的这个小项目主要用了几个东西，一个是tab+tabView+tabController的混合使用
+这里的这个小项目主要用了几个东西:
 
+1.一个是tab+tabView+tabController的混合使用:
 
-
-      
       class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMixin {
        TabController tabController;
        var tabs = <Tab>[
@@ -151,6 +150,13 @@
       https://www.jianshu.com/p/cefe49a0ab7f 
  截止到这里，就是tab的使用：
         
+        
+        
+        
+        
+        
+        
+        
 2.路由跳转与回传参数：
   路由跳转有两种方法，一种是静态路由跳转，一种是动态路由跳转：
   静态路由跳转并不能进行参数传递但可以进行参数回传，而动态路由跳转可以进行参数传递和回传
@@ -222,4 +228,72 @@ pop界面
       详情：https://blog.csdn.net/weixin_34406796/article/details/87297489
       
       
-         
+      
+      
+      
+      
+      
+      
+3.EventBus的使用
+好像flutter也有自己的RxDart可是我没有用过，只用过EventBus，后面用了再补上
+事件总线EventBus，用来进行事件的分发，我在android的时候用的是rxjava，没用过eventbus，不知道android的怎样。
+可是flutter里面，我第一次用eventbus的时候，感觉真的好简单。真的太简单了：
+添加库：
+
+      event_bus: ^1.0.1//要注意对齐
+      
+ EventBus的使用：
+      
+      import 'package:event_bus/event_bus.dart';//import 方法
+
+      EventBus eventBus =  EventBus();//新建实例，eventBus可以全局使用
+      
+      class DeviceName{//新建一个需要分发的类
+            String deviceName;
+            DeviceName(this.deviceName);
+      }
+      
+然后再需要进行事件分送的地方：
+      
+      eventBus.fire((new DeviceName('需要传的同类型参数')));
+      
+接受的地方:
+
+      String s;
+      ....
+     eventBus.on<counter>().listen((event){
+      setState(() {//接受后进行界面的改变
+      
+        s = event.deviceName;
+      });
+    });
+    
+这样就完成了一个eventbus的分发和接受了，是不是很简单。
+然而这里有一个隐患，假如你是持续发送和不断接受的话，再界面跳转的时候，没有即时把event对象给dispose掉，然后页面关闭了，你还是在不断的进行
+setState（）方法，这时候会报错，可是不会让程序崩溃，不过有可能让你的程序功能无效。
+所以在这样改变接受的地方：
+      
+      StreamSubscription event1;
+      String s;
+      ....
+    event1 = eventBus.on<counter>().listen((event){
+      setState(() {//接受后进行界面的改变
+      
+        s = event.deviceName;
+      });
+    });
+    
+    
+    void dispose(){
+      if(event1 != null){
+            event1.cannel();
+      }
+      super.dispose();
+    }
+这样就可以便解决有可能产生问题了。
+
+
+
+
+4.VoidCallBack 和 ValueChange的使用
+VoidCallBack 是用来回调方法的
