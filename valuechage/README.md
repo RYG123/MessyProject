@@ -4,7 +4,6 @@
 1.这里的这个小项目主要用了几个东西，一个是tab+tabView+tabController的混合使用：
 
 
-......
 class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMixin {
 
   TabController tabController;
