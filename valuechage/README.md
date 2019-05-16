@@ -5,12 +5,11 @@
 
 
 class _MyHomePageState extends State<MyHomePage>with SingleTickerProviderStateMixin {
-
   TabController tabController;
   var tabs = <Tab>[
-    Tab(child: new Text('数据'),),
-    Tab(child: new Text("控制"),),
-    Tab(child: new Text("设置"),),
+    Tab(child: new Text('1'),),
+    Tab(child: new Text("2"),),
+    Tab(child: new Text("3"),),
   ];
   int _counter = 0;
   bool tan = false;
