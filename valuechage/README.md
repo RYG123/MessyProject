@@ -152,4 +152,74 @@
  截止到这里，就是tab的使用：
         
 2.路由跳转与回传参数：
-  路由跳转有两种
+  路由跳转有两种方法，一种是静态路由跳转，一种是动态路由跳转：
+  静态路由跳转并不能进行参数传递但可以进行参数回传，而动态路由跳转可以进行参数传递和回传
+  
+  静态路由的注册：
+  在新建一个MD风格的App的时候，可以传入一个routes参数来定义路由。但是这里定义的路由是静态的，它不可以向下一个页面传递参数。
+            
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new MyHomePage(title: 'Flutter实例'),
+      routes: <String, WidgetBuilder> {
+        // 这里可以定义静态路由，不能传递参数
+        '/router/second': (_) => new SecondPage(),
+        '/router/home': (_) => new RouterHomePage(),
+      },
+    );
+静态路由的使用：
+在需要的进行跳转的地方加上这一句话，pushNamed（）里面写的是需要跳转到的界面，只能跳转到注册过的界面
+
+      Navigator.of(context).pushNamed('/router/second');
+ 
+      // 带返回值
+            Navigator.of(context).pushNamed('/router/second')
+            .then((value) {//通过写then方法进行回传值的获取
+                    // dialog显示返回值
+                    _showDialog(context, value);
+                  })
+参数回传：
+pop界面     
+
+      Navigator.of(context).pop('这个是要返回给上一个页面的数据');//第二个界面返回
+      
+动态路由跳转：
+我个人觉得动态比较简单，方便，而且可以传递参数：
+      
+      //在需要的地方调用
+      Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new SecondPage(title: '路由是个好东西，要进一步封装');
+                  }));
+                  
+      //除了push(),还有pushReplacement()，跳转页面并且在动画完成之后关闭自身页面，使其不存在，移出栈堆.
+      还有一个pushAndRemoveUntil ：跳转到指定页面，并按顺序（从栈顶到栈底）移出之前的所有页面，直到predicate返回true。
+      没用过- -，详情请看：
+            https://www.jianshu.com/p/c45ee7996efc
+           
+      //动态跳转带返回值
+      // 带返回值
+            Navigator.of(context).pushNamed('/router/second')
+            .then((value) {//通过写then方法进行回传值的获取
+                    // dialog显示返回值
+                    _showDialog(context, value);
+                  })
+动态路由参数回传与静态一样：
+
+            Navigator.of(context).pop('这个是要返回给上一个页面的数据');//第二个界面返回
+可是回传的参数只有一个，那假如要多参数的时候怎么办呢？
+那当然是传其他类型的参数啊，你可以传list，map等等等，传过去之后在进行解析使用
+
+            var map = {"name":name,"id":id}
+            var list = List();
+            ....
+            Navigator.of(context).pop(map);//第二个界面返回
+            
+路由跳转也可使用自定义动画：
+      
+      详情：https://blog.csdn.net/weixin_34406796/article/details/87297489
+      
+      
+         
