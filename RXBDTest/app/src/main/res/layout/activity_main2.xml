@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="main"
+            type="linkjob.com.rxbdtest.Main2Activity">
+        </variable>
+    </data>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragmentmain"
+            android:layout_centerHorizontal="true"
+            >
+
+        </FrameLayout>
+
+
+
+</layout>
